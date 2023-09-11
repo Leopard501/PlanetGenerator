@@ -91,7 +91,7 @@ public class Planet {
     }
 
     private void displayShadow() {
-        shadow = lighting.getImage(surface.sprite);
+        shadow = lighting.getImage(surface.sprite, liquid, gas);
         Main.app.tint(star.shadow.getRGB());
         Main.app.image(shadow, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
     }
