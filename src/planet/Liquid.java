@@ -101,15 +101,21 @@ class Liquid extends Component {
     Shape shape;
     Type type;
 
+    boolean glows;
+
     Liquid() {
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
             high = randomColor();
+
+            glows = Main.app.random(5) < 1;
         } else {
             type = pick(Type.class);
             low = type.low.get();
             high = type.high.get();
+
+            glows = type.equals(Type.MoltenRock) || type.equals(Type.MoltenMetal);
         }
 
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));

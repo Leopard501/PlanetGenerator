@@ -33,7 +33,7 @@ class Lighting {
     private final float rate;
     private final PVector planetPos;
 
-    public final Star star;
+    final Star star;
 
     private float time;
     private PVector shadowPos;

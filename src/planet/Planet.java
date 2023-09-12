@@ -89,6 +89,13 @@ public class Planet {
                 if ((shadow.pixels[i] >> 24 & 255) > 0) {
                     img.pixels[i] = shadow.pixels[i];
 
+                    // Glowy liquids
+                    if (liquid.glows &&
+                            (ice.sprite.pixels[i] >> 24 & 255) == 0 &&
+                            (liquid.sprite.pixels[i] >> 24 & 255) > 0) {
+                        img.pixels[i] = liquid.sprite.pixels[i];
+                    }
+
                     // City lights
                     if ((ice.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (liquid.sprite.pixels[i] >> 24 & 255) == 0 &&
