@@ -56,27 +56,6 @@ class Life extends Component {
         }
     }
 
-//    @Override
-//    PImage createImage(PImage base) {
-//        PImage img = base.copy();
-//        img.loadPixels();
-//
-//        for (int x = 0; x < IMG_SIZE; x++) {
-//            for (int y = 0; y < IMG_SIZE; y++) {
-//                int i = x + y * IMG_SIZE;
-//
-//                img.pixels[i] = mapColor(
-//                        low, high,
-//                        new Color(img.pixels[i]).getRed(),
-//                        img.pixels[i] >> 24 & 255
-//                ).getRGB();
-//            }
-//        }
-//
-//        img.updatePixels();
-//        return img;
-//    }
-
     private Type typeFromStar(Planet.Star star) {
         if (star.equals(Planet.Star.O) || star.equals(Planet.Star.B) || star.equals(Planet.Star.A)) {
             return pickType(Type.RedAlgae, Type.BrownAlgae, Type.GreenAlgae);

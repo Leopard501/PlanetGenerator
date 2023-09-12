@@ -102,6 +102,7 @@ public class Planet {
         liquid.sprite.loadPixels();
         surface.sprite.loadPixels();
         life.sprite.loadPixels();
+        gas.sprite.loadPixels();
 
         for (int x = 0; x < IMG_SIZE; x++) {
             for (int y = 0; y < IMG_SIZE; y++) {
@@ -133,6 +134,17 @@ public class Planet {
                                     new Color(img.pixels[i]), lifeColor,
                                     lifeAlpha, 255).getRGB();
                         }
+                    }
+                    // Gas
+                    if (showClouds && (gas.sprite.pixels[i] >> 24 & 255) > 0) {
+                        Color gasColor = new Color(gas.sprite.pixels[i], true);
+                        // extract alpha
+                        int gasAlpha = gasColor.getAlpha();
+                        gasColor = new Color(gasColor.getRGB());
+                        // merge with everything below
+                        img.pixels[i] = Component.mapColor(
+                                new Color(img.pixels[i]), gasColor,
+                                gasAlpha, 255).getRGB();
                     }
 //                }
             }

@@ -14,7 +14,6 @@ class Gas extends Component {
         Acid(() -> new Color(0xC7FFB4), 1),
         Dust(() -> new Color(175, 140, 100), 1),
         Metal(() -> new Color(161, 139, 127), 1),
-        Life(Component::randomColor, 1),
         Ammonia(() -> new Color(200, 200, 220), 1),
         Methane(() -> new Color(200, 180, 100), 1),
         CO2(() -> new Color(240, 225, 195), 1),
@@ -75,8 +74,9 @@ class Gas extends Component {
             type = pick(Type.class);
             low = type.color.get();
         }
+        high = low;
 
-        sprite = Main.sprites.get("planet_gas_" + shape.name());
+        sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
         if (shape == Shape.None) description = "No";
         else {
             if (type != null) description = shape.name() + " " + type.name();
