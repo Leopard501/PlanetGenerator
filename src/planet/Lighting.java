@@ -60,7 +60,7 @@ class Lighting {
         useOutside = time < 1 || time > 3;
     }
 
-    public PImage getImage(PImage surface) {
+    public PImage getImage(PImage surface, Planet.DayNightStatus dayNightStatus) {
         PImage shadow = Main.app.createImage(16, 16, PConstants.ALPHA);
         shadow.loadPixels();
         surface.loadPixels();
@@ -71,6 +71,10 @@ class Lighting {
 
                 int planetAlph = surface.pixels[loc] >> 24 & 255;
                 boolean visible = planetAlph == 255 && (useOutside ? isOutside(x, y) : isInside(x, y));
+
+                if (dayNightStatus.equals(Planet.DayNightStatus.Night)) visible = planetAlph == 255;
+                else if (dayNightStatus.equals(Planet.DayNightStatus.Day)) visible = false;
+
                 if (visible) shadow.pixels[loc] = star.shadow.getRGB();
                 else shadow.pixels[loc] = 0x00000000;
             }

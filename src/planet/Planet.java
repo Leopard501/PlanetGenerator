@@ -10,10 +10,17 @@ import static processing.core.PConstants.ARGB;
 
 public class Planet {
 
+    public enum DayNightStatus {
+        Normal,
+        Day,
+        Night
+    }
+
     static final float HEIGHT = Main.HEIGHT * 0.35f;
     static final int IMG_SIZE = 16;
 
     public boolean showClouds = true;
+    public DayNightStatus dayNightStatus = DayNightStatus.Normal;
 
     public final int seed;
 
@@ -24,8 +31,6 @@ public class Planet {
     private final Ice ice;
     private final Lights lights;
     private final Lighting lighting;
-
-    private PImage shadow;
 
     public Planet(int seed) {
         this.seed = seed;
@@ -64,7 +69,7 @@ public class Planet {
         PImage img = Main.app.createImage(16, 16, ARGB);
         img.loadPixels();
 
-        shadow = lighting.getImage(surface.sprite);
+        PImage shadow = lighting.getImage(surface.sprite, dayNightStatus);
         shadow.loadPixels();
         ice.sprite.loadPixels();
         liquid.sprite.loadPixels();

@@ -79,5 +79,19 @@ public class Main extends PApplet {
             planet = new Planet(seeds.get(seedIdx));
         }
         if (key == 'c') planet.showClouds = !planet.showClouds;
+        if (key == 'd') {
+            if (planet.dayNightStatus.equals(Planet.DayNightStatus.Day)) {
+                planet.dayNightStatus = Planet.DayNightStatus.Normal;
+            } else {
+                planet.dayNightStatus = Planet.DayNightStatus.Day;
+            }
+        }
+        if (key == 'n') {
+            if (planet.dayNightStatus.equals(Planet.DayNightStatus.Night)) {
+                planet.dayNightStatus = Planet.DayNightStatus.Normal;
+            } else {
+                planet.dayNightStatus = Planet.DayNightStatus.Night;
+            }
+        }
     }
 }
