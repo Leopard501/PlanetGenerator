@@ -79,6 +79,7 @@ public class Planet {
         surface.sprite.loadPixels();
         life.sprite.loadPixels();
         gas.sprite.loadPixels();
+        lights.sprite.loadPixels();
 
         for (int x = 0; x < IMG_SIZE; x++) {
             for (int y = 0; y < IMG_SIZE; y++) {
@@ -87,6 +88,20 @@ public class Planet {
                 // In shadow
                 if ((shadow.pixels[i] >> 24 & 255) > 0) {
                     img.pixels[i] = shadow.pixels[i];
+
+                    // City lights
+                    if ((ice.sprite.pixels[i] >> 24 & 255) == 0 &&
+                            (liquid.sprite.pixels[i] >> 24 & 255) == 0 &&
+                            (lights.sprite.pixels[i] >> 24 & 255) > 0) {
+                        Color lightColor = new Color(lights.sprite.pixels[i], true);
+                        // extract alpha
+                        int lightAlpha = lightColor.getAlpha();
+                        lightColor = new Color(lightColor.getRGB());
+                        // merge with shadow
+                        img.pixels[i] = Component.mapColor(
+                                new Color(img.pixels[i]), lightColor,
+                                lightAlpha, 255).getRGB();
+                    }
                 // Not in shadow
                 } else {
                     // Ice
