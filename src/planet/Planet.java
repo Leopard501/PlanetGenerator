@@ -94,25 +94,21 @@ public class Planet {
         for (int x = 0; x < IMG_SIZE; x++) {
             for (int y = 0; y < IMG_SIZE; y++) {
                 int i = x + y * IMG_SIZE;
-
                 // In shadow
                 if ((shadow.pixels[i] >> 24 & 255) > 0) {
                     img.pixels[i] = shadow.pixels[i];
-
                     // Glowy liquids
                     if (liquid.glows &&
                             (ice.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (liquid.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = liquid.sprite.pixels[i];
                     }
-
                     // City lights
                     if ((ice.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (liquid.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (lights.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = mergeTransparently(lights.sprite.pixels[i], img.pixels[i]);
                     }
-
                     // Dark clouds
                     if (showClouds && (gas.sprite.pixels[i] >> 24 & 255) > 0) {
                         Color newColorColor = new Color(gas.sprite.pixels[i], true);

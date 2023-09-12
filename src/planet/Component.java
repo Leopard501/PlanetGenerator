@@ -18,11 +18,6 @@ abstract class Component {
     PImage sprite;
     String description;
 
-//    void display() {
-//        Main.app.tint(color.getRGB());
-//        Main.app.image(sprite, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
-//    }
-
     void displayText(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
