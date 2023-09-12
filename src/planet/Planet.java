@@ -2,6 +2,7 @@ package planet;
 
 import core.Main;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 import java.awt.*;
@@ -63,6 +64,18 @@ public class Planet {
         life.displayText(HEIGHT + 100 + 30 * 4);
         lights.displayText(HEIGHT + 100 + 30 * 5);
         displayStarType(HEIGHT + 100 + 30 * 6);
+        displaySettings();
+    }
+
+    private void displaySettings() {
+        Main.app.textAlign(PConstants.LEFT);
+
+        if (!showClouds) Main.app.text("Clouds hidden", 10, Main.HEIGHT - 10);
+        if (dayNightStatus.equals(DayNightStatus.Day)) Main.app.text("Day only", 10, Main.HEIGHT - 10 - 20);
+        if (dayNightStatus.equals(DayNightStatus.Night)) Main.app.text("Night only", 10, Main.HEIGHT - 10 - 20);
+        if (Main.entryMode) Main.app.text("Entry mode", 10, Main.HEIGHT - 10 - 20 * 2);
+
+        Main.app.textAlign(PConstants.CENTER);
     }
 
     private PImage createImage() {
