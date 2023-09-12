@@ -7,6 +7,8 @@ import processing.core.PImage;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static planet.Planet.IMG_SIZE;
+
 abstract class Component {
 
     static final int RANDOM_COLOR_CHANCE = 7;
@@ -25,6 +27,26 @@ abstract class Component {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(description, Main.WIDTH / 2f, height);
+    }
+
+    PImage createImage(PImage base) {
+        PImage img = base.copy();
+        img.loadPixels();
+
+        for (int x = 0; x < IMG_SIZE; x++) {
+            for (int y = 0; y < IMG_SIZE; y++) {
+                int i = x + y * IMG_SIZE;
+
+                img.pixels[i] = mapColor(
+                        low, high,
+                        new Color(img.pixels[i]).getRed(),
+                        img.pixels[i] >> 24 & 255
+                ).getRGB();
+            }
+        }
+
+        img.updatePixels();
+        return img;
     }
 
     static Color mapColor(Color a, Color b, float map, float alpha) {

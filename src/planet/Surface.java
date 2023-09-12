@@ -81,24 +81,4 @@ class Surface extends Component {
         else description = "Unknown " + shape.name();
         description += " Surface";
     }
-
-    private PImage createImage(PImage base) {
-        PImage img = base.copy();
-        img.loadPixels();
-
-        for (int x = 0; x < IMG_SIZE; x++) {
-            for (int y = 0; y < IMG_SIZE; y++) {
-                int i = x + y * IMG_SIZE;
-
-                img.pixels[i] = mapColor(
-                        low, high,
-                        new Color(img.pixels[i]).getRed(),
-                        img.pixels[i] >> 24 & 255
-                ).getRGB();
-            }
-        }
-
-        img.updatePixels();
-        return img;
-    }
 }

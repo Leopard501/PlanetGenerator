@@ -116,17 +116,17 @@ public class Planet {
                     if ((ice.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = ice.sprite.pixels[i];
                     // Liquid
-                    } else if ((liquid.sprite.pixels[i] >> 24 & 255) > 0) {
+                    } else */if ((liquid.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = liquid.sprite.pixels[i];
                     // Surface
                     } else {
-                        */img.pixels[i] = surface.sprite.pixels[i];/*
+                        img.pixels[i] = surface.sprite.pixels[i];/*
                         // Life
                         if ((life.sprite.pixels[i] >> 24 & 255) > 0) {
                             // todo: life stuff
                         }
-                    }
-                }*/
+                    }*/
+                }
             }
         }
 
