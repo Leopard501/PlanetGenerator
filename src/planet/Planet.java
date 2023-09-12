@@ -148,7 +148,7 @@ public class Planet {
     private void displaySeed() {
         Main.app.textSize(32);
         Main.app.fill(Color.YELLOW.getRGB());
-        Main.app.text("Planet #" + seed, Main.WIDTH / 2f, HEIGHT - 100);
+        Main.app.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
     private void displayStarType(float height) {

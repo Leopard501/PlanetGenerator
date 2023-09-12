@@ -16,6 +16,8 @@ public class Main extends PApplet {
     public static HashMap<String, PImage> sprites;
     public static ArrayList<Integer> seeds;
 
+    public static boolean entryMode;
+
     private Planet planet;
     private int seedIdx;
 
@@ -69,12 +71,12 @@ public class Main extends PApplet {
 
     @Override
     public void keyReleased() {
-        if (key == ' ') {
+        if (key == ' ' && !entryMode) {
             seedIdx++;
             if (seedIdx == seeds.size()) genPlanet();
             else planet = new Planet(seeds.get(seedIdx));
         }
-        if (key == 'b') {
+        if (key == 'b' && !entryMode) {
             if (seedIdx > 0) seedIdx--;
             planet = new Planet(seeds.get(seedIdx));
         }
@@ -91,6 +93,30 @@ public class Main extends PApplet {
                 planet.dayNightStatus = Planet.DayNightStatus.Normal;
             } else {
                 planet.dayNightStatus = Planet.DayNightStatus.Night;
+            }
+        }
+        if (key == 'e') {
+            if (entryMode) {
+                entryMode = false;
+                seeds.add(planet.seed);
+                seedIdx++;
+            } else {
+                entryMode = true;
+                planet = new Planet(0);
+            }
+        }
+        if (entryMode) {
+            if ((int) key >= 48 && (int) key <= 57) {
+                int entered = ((int) key) - 48;
+                int newSeed = planet.seed;
+
+                if (newSeed == 0) newSeed = entered;
+                else {
+                    newSeed *= 10;
+                    newSeed += entered;
+                }
+
+                planet = new Planet(newSeed);
             }
         }
     }
