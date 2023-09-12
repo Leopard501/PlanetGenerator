@@ -101,6 +101,7 @@ public class Planet {
         ice.sprite.loadPixels();
         liquid.sprite.loadPixels();
         surface.sprite.loadPixels();
+        life.sprite.loadPixels();
 
         for (int x = 0; x < IMG_SIZE; x++) {
             for (int y = 0; y < IMG_SIZE; y++) {
@@ -120,13 +121,20 @@ public class Planet {
                         img.pixels[i] = liquid.sprite.pixels[i];
                     // Surface
                     } else {
-                        img.pixels[i] = surface.sprite.pixels[i];/*
+                        img.pixels[i] = surface.sprite.pixels[i];
                         // Life
                         if ((life.sprite.pixels[i] >> 24 & 255) > 0) {
-                            // todo: life stuff
+                            Color lifeColor = new Color(life.sprite.pixels[i], true);
+                            // extract alpha
+                            int lifeAlpha = lifeColor.getAlpha();
+                            lifeColor = new Color(lifeColor.getRGB());
+                            // merge with surface
+                            img.pixels[i] = Component.mapColor(
+                                    new Color(img.pixels[i]), lifeColor,
+                                    lifeAlpha, 255).getRGB();
                         }
-                    }*/
-                }
+                    }
+//                }
             }
         }
 

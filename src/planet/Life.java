@@ -1,8 +1,11 @@
 package planet;
 
 import core.Main;
+import processing.core.PImage;
 
 import java.awt.*;
+
+import static planet.Planet.IMG_SIZE;
 
 class Life extends Component {
 
@@ -43,8 +46,9 @@ class Life extends Component {
             type = typeFromStar(star);
             low = type.color;
         }
+        high = low;
 
-        sprite = Main.sprites.get("planet_life_" + shape.name());
+        sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
         if (shape == Shape.None) description = "No life";
         else {
             if (type != null) description = shape.name() + " " + type.name();
@@ -52,7 +56,26 @@ class Life extends Component {
         }
     }
 
-
+//    @Override
+//    PImage createImage(PImage base) {
+//        PImage img = base.copy();
+//        img.loadPixels();
+//
+//        for (int x = 0; x < IMG_SIZE; x++) {
+//            for (int y = 0; y < IMG_SIZE; y++) {
+//                int i = x + y * IMG_SIZE;
+//
+//                img.pixels[i] = mapColor(
+//                        low, high,
+//                        new Color(img.pixels[i]).getRed(),
+//                        img.pixels[i] >> 24 & 255
+//                ).getRGB();
+//            }
+//        }
+//
+//        img.updatePixels();
+//        return img;
+//    }
 
     private Type typeFromStar(Planet.Star star) {
         if (star.equals(Planet.Star.O) || star.equals(Planet.Star.B) || star.equals(Planet.Star.A)) {
