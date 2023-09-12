@@ -1,9 +1,12 @@
 package planet;
 
 import core.Main;
+import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.awt.*;
+
+import static processing.core.PConstants.ARGB;
 
 public class Planet {
 
@@ -27,6 +30,7 @@ public class Planet {
     }
 
     static final float HEIGHT = Main.HEIGHT * 0.35f;
+    static final int IMG_SIZE = 16;
 
     public boolean showClouds = true;
 
@@ -55,7 +59,10 @@ public class Planet {
         life = new Life(star, isHabitable(liquid));
         ice = new Ice(isCool(liquid));
         lights = new Lights(hasComplexLife(life));
-        lighting = new Lighting(ice.shape.equals(Ice.Shape.EyeballSheet) ? 0 : Main.app.random(0.002f, 0.01f));
+        lighting = new Lighting(
+                ice.shape.equals(Ice.Shape.EyeballSheet) ?
+                        0 :
+                        Main.app.random(-0.01f, 0.01f));
 
         highlight = Main.sprites.get("planet_lighting_highlight");
     }
@@ -65,14 +72,15 @@ public class Planet {
     }
 
     public void display() {
-        surface.display();
-        life.display();
-        liquid.display();
-        ice.display();
-        displayHighlight();
-        if (showClouds) gas.display();
-        displayShadow();
-        lights.display(liquid.sprite, ice.sprite, shadow);
+//        surface.display();
+//        life.display();
+//        liquid.display();
+//        ice.display();
+//        displayHighlight();
+//        if (showClouds) gas.display();
+//        displayShadow();
+//        lights.display(liquid.sprite, ice.sprite, shadow);
+        Main.app.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
 
         displaySeed();
         surface.displayText(HEIGHT + 100);
@@ -82,6 +90,47 @@ public class Planet {
         life.displayText(HEIGHT + 100 + 30 * 4);
         lights.displayText(HEIGHT + 100 + 30 * 5);
         displayStarType(HEIGHT + 100 + 30 * 6);
+    }
+
+    private PImage createImage() {
+        PImage img = Main.app.createImage(16, 16, ARGB);
+        img.loadPixels();
+
+        shadow = lighting.getImage(surface.sprite, liquid, gas);
+        shadow.loadPixels();
+        ice.sprite.loadPixels();
+        liquid.sprite.loadPixels();
+        surface.sprite.loadPixels();
+
+        for (int x = 0; x < IMG_SIZE; x++) {
+            for (int y = 0; y < IMG_SIZE; y++) {
+                int i = x + y * IMG_SIZE;
+
+                // In shadow
+                if ((shadow.pixels[i] >> 24 & 255) > 0) {
+                    // todo: shadow stuff
+                    img.pixels[i] = shadow.pixels[i];
+                // Not in shadow
+                } else {
+                    // Ice
+                    if ((ice.sprite.pixels[i] >> 24 & 255) > 0) {
+                        img.pixels[i] = ice.sprite.pixels[i];
+                    // Liquid
+                    } else if ((liquid.sprite.pixels[i] >> 24 & 255) > 0) {
+                        img.pixels[i] = liquid.sprite.pixels[i];
+                    // Surface
+                    } else {
+                        img.pixels[i] = surface.sprite.pixels[i];
+                        // Life
+                        if ((life.sprite.pixels[i] >> 24 & 255) > 0) {
+                            // todo: life stuff
+                        }
+                    }
+                }
+            }
+        }
+
+        return img;
     }
 
     private void displaySeed() {

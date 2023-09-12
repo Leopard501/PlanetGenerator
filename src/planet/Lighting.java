@@ -44,24 +44,24 @@ class Lighting {
         shadow.loadPixels();
         surface.loadPixels();
 
-        boolean glowyLiquid = (liquid.type != null && (liquid.type.equals(Liquid.Type.MoltenMetal) || liquid.type.equals(Liquid.Type.MoltenRock))) &&
-                !liquid.shape.equals(Liquid.Shape.None);
-        if (glowyLiquid) {
-            liquid.sprite.loadPixels();
-            gas.sprite.loadPixels();
-        }
+//        boolean glowyLiquid = (liquid.type != null && (liquid.type.equals(Liquid.Type.MoltenMetal) || liquid.type.equals(Liquid.Type.MoltenRock))) &&
+//                !liquid.shape.equals(Liquid.Shape.None);
+//        if (glowyLiquid) {
+//            liquid.sprite.loadPixels();
+//            gas.sprite.loadPixels();
+//        }
 
         // todo: turn off clouds in shadow
         for (int x = 0; x < shadow.width; x++) {
             for (int y = 0; y < shadow.height; y++) {
                 int loc = x + y * shadow.width;
 
-                int alph = 255;
+//                int alph = 255;
                 int planetAlph = surface.pixels[loc] >> 24 & 255;
                 boolean visible = planetAlph == 255 && (useOutside ? isOutside(x, y) : isInside(x, y));
-                if (glowyLiquid && (liquid.sprite.pixels[loc] >> 24 & 255) == 255) alph = gas.sprite.pixels[loc] >> 24;
-                if (visible) shadow.pixels[loc] = (alph) + 0xFFFFFF00;
-                else shadow.pixels[loc] = Main.app.color(0, 0);
+//                if (glowyLiquid && (liquid.sprite.pixels[loc] >> 24 & 255) == 255) alph = gas.sprite.pixels[loc] >> 24;
+                if (visible) shadow.pixels[loc] = 0xFFFFFFFF;
+                else shadow.pixels[loc] = 0x00000000;
             }
         }
 
