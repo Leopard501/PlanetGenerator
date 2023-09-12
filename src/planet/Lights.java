@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class Lights extends Component {
 
     enum Type implements Pickable {
-        Fire(() -> new Color(255, 128, 0), 5),
+        Firelit(() -> new Color(255, 128, 0), 5),
         Incandescent(() -> new Color(255, 180, 0), 3),
         LED(() -> Color.WHITE, 1),
         Neon(() -> Color.CYAN, 1),
