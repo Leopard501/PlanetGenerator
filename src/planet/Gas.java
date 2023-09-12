@@ -70,10 +70,10 @@ class Gas extends Component {
     Gas() {
         shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = pick(Type.class);
-            color = type.color.get();
+            low = type.color.get();
         }
 
         sprite = Main.sprites.get("planet_gas_" + shape.name());

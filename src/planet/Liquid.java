@@ -73,10 +73,10 @@ class Liquid extends Component {
     Liquid() {
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = pick(Type.class);
-            color = type.color.get();
+            low = type.color.get();
         }
 
         sprite = Main.sprites.get("planet_liquid_" + shape.name());

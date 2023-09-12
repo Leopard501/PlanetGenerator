@@ -106,7 +106,7 @@ public class Planet {
             for (int y = 0; y < IMG_SIZE; y++) {
                 int i = x + y * IMG_SIZE;
 
-                // In shadow
+                /*// In shadow
                 if ((shadow.pixels[i] >> 24 & 255) > 0) {
                     // todo: shadow stuff
                     img.pixels[i] = shadow.pixels[i];
@@ -120,13 +120,13 @@ public class Planet {
                         img.pixels[i] = liquid.sprite.pixels[i];
                     // Surface
                     } else {
-                        img.pixels[i] = surface.sprite.pixels[i];
+                        */img.pixels[i] = surface.sprite.pixels[i];/*
                         // Life
                         if ((life.sprite.pixels[i] >> 24 & 255) > 0) {
                             // todo: life stuff
                         }
                     }
-                }
+                }*/
             }
         }
 
@@ -139,16 +139,16 @@ public class Planet {
         Main.app.text("Planet #" + seed, Main.WIDTH / 2f, HEIGHT - 100);
     }
 
-    private void displayShadow() {
-        shadow = lighting.getImage(surface.sprite, liquid, gas);
-        Main.app.tint(star.shadow.getRGB());
-        Main.app.image(shadow, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
-    }
-
-    private void displayHighlight() {
-        Main.app.tint(star.highlight.getRGB());
-        Main.app.image(highlight, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
-    }
+//    private void displayShadow() {
+//        shadow = lighting.getImage(surface.sprite, liquid, gas);
+//        Main.app.tint(star.shadow.getRGB());
+//        Main.app.image(shadow, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
+//    }
+//
+//    private void displayHighlight() {
+//        Main.app.tint(star.highlight.getRGB());
+//        Main.app.image(highlight, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
+//    }
 
     private void displayStarType(float height) {
         Main.app.fill(255);

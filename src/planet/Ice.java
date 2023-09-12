@@ -66,10 +66,10 @@ public class Ice extends Component {
 //        shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = pick(Type.class);
-            color = type.color.get();
+            low = type.color.get();
         }
 
         if (type != null) if (!isCool && type.equals(Type.Ice)) shape = Shape.None;

@@ -68,10 +68,10 @@ public class Lights extends Component {
         else shape = pick(Shape.class);
 
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = pick(Type.class);
-            color = type.color.get();
+            low = type.color.get();
         }
 
         sprite = Main.sprites.get("planet_lights_" + shape.name());
@@ -108,7 +108,7 @@ public class Lights extends Component {
         }
         img.updatePixels();
 
-        Main.app.tint(color.getRGB());
+        Main.app.tint(low.getRGB());
         Main.app.image(img, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
     }
 }

@@ -38,10 +38,10 @@ class Life extends Component {
         if (isHabitable) shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         else shape = Shape.None;
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = typeFromStar(star);
-            color = type.color;
+            low = type.color;
         }
 
         sprite = Main.sprites.get("planet_life_" + shape.name());
