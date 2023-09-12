@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class Lights extends Component {
 
     enum Type implements Pickable {
-        Fire(() -> new Color(255, 128, 0), 5),
+        Firelit(() -> new Color(255, 128, 0), 5),
         Incandescent(() -> new Color(255, 180, 0), 3),
         LED(() -> Color.WHITE, 1),
         Neon(() -> Color.CYAN, 1),
@@ -68,47 +68,18 @@ public class Lights extends Component {
         else shape = pick(Shape.class);
 
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
-            color = randomColor();
+            low = randomColor();
         } else {
             type = pick(Type.class);
-            color = type.color.get();
+            low = type.color.get();
         }
+        high = low;
 
-        sprite = Main.sprites.get("planet_lights_" + shape.name());
+        sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
         if (shape == Shape.None) description = "No complex life";
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
         }
-    }
-
-    public void display(PImage liquid, PImage ice, PImage shadow) {
-        PImage img = sprite.copy();
-        img.loadPixels();
-        liquid.loadPixels();
-        ice.loadPixels();
-        for (int x = 0; x < img.width; x++) {
-            for (int y = 0; y < img.height; y++) {
-                int loc = x + y * img.width;
-
-                int liqAlph = liquid.pixels[loc] >> 24 & 255;
-                boolean isLiq = liqAlph > 0;
-                int iceAlph = ice.pixels[loc] >> 24 & 255;
-                boolean isIce = iceAlph > 0;
-                int imgAlph = img.pixels[loc] >> 24 & 255;
-                float imgProp = imgAlph / 255f;
-                int shadAlph = shadow.pixels[loc] >> 24 & 255;
-                float shadProp = shadAlph / 255f;
-
-                if (isLiq || isIce) liqAlph = 0;
-                else liqAlph = (int) (imgProp * shadProp * 255);
-
-                img.pixels[loc] = (liqAlph << 24) + 0xFFFFFF;
-            }
-        }
-        img.updatePixels();
-
-        Main.app.tint(color.getRGB());
-        Main.app.image(img, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
     }
 }

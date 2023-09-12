@@ -1,28 +1,65 @@
 package planet;
 
 import core.Main;
+import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+import static planet.Planet.IMG_SIZE;
+
 abstract class Component {
 
     static final int RANDOM_COLOR_CHANCE = 7;
 
-    Color color;
+    Color low;
+    Color high;
     PImage sprite;
     String description;
 
-    void display() {
-        Main.app.tint(color.getRGB());
-        Main.app.image(sprite, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
-    }
+//    void display() {
+//        Main.app.tint(color.getRGB());
+//        Main.app.image(sprite, Main.WIDTH / 2f, Planet.HEIGHT, 160, 160);
+//    }
 
     void displayText(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(description, Main.WIDTH / 2f, height);
+    }
+
+    PImage createImage(PImage base) {
+        PImage img = base.copy();
+        img.loadPixels();
+
+        for (int x = 0; x < IMG_SIZE; x++) {
+            for (int y = 0; y < IMG_SIZE; y++) {
+                int i = x + y * IMG_SIZE;
+
+                img.pixels[i] = mapColor(
+                        low, high,
+                        new Color(img.pixels[i]).getRed(),
+                        img.pixels[i] >> 24 & 255
+                ).getRGB();
+            }
+        }
+
+        img.updatePixels();
+        return img;
+    }
+
+    static Color mapColor(Color a, Color b, float map, float alpha) {
+        float r = PApplet.map(map, 0, 255, a.getRed(), b.getRed());
+        float g = PApplet.map(map, 0, 255, a.getGreen(), b.getGreen());
+        float bl = PApplet.map(map, 0, 255, a.getBlue(), b.getBlue());
+
+        r = PApplet.map(r, 0, 255, 0, 1);
+        g = PApplet.map(g, 0, 255, 0, 1);
+        bl = PApplet.map(bl, 0, 255, 0, 1);
+        alpha = PApplet.map(alpha, 0, 255, 0, 1);
+
+        return new Color(r, g, bl, alpha);
     }
 
     static Color randomColor() {
