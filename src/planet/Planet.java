@@ -48,14 +48,6 @@ public class Planet {
     }
 
     public void display() {
-//        surface.display();
-//        life.display();
-//        liquid.display();
-//        ice.display();
-//        displayHighlight();
-//        if (showClouds) gas.display();
-//        displayShadow();
-//        lights.display(liquid.sprite, ice.sprite, shadow);
         Main.app.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
 
         displaySeed();
@@ -100,14 +92,17 @@ public class Planet {
                     if ((ice.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (liquid.sprite.pixels[i] >> 24 & 255) == 0 &&
                             (lights.sprite.pixels[i] >> 24 & 255) > 0) {
-                        Color lightColor = new Color(lights.sprite.pixels[i], true);
-                        // extract alpha
-                        int lightAlpha = lightColor.getAlpha();
-                        lightColor = new Color(lightColor.getRGB());
-                        // merge with shadow
+                        img.pixels[i] = mergeTransparently(lights.sprite.pixels[i], img.pixels[i]);
+                    }
+
+                    // Dark clouds
+                    if (showClouds && (gas.sprite.pixels[i] >> 24 & 255) > 0) {
+                        Color newColorColor = new Color(gas.sprite.pixels[i], true);
+                        int newAlpha = newColorColor.getAlpha();
+                        newColorColor = new Color(lighting.star.shadow.getRGB());
                         img.pixels[i] = Component.mapColor(
-                                new Color(img.pixels[i]), lightColor,
-                                lightAlpha, 255).getRGB();
+                                new Color(img.pixels[i]), newColorColor,
+                                newAlpha, 255).getRGB();
                     }
                 // Not in shadow
                 } else {
@@ -122,32 +117,27 @@ public class Planet {
                         img.pixels[i] = surface.sprite.pixels[i];
                         // Life
                         if ((life.sprite.pixels[i] >> 24 & 255) > 0) {
-                            Color lifeColor = new Color(life.sprite.pixels[i], true);
-                            // extract alpha
-                            int lifeAlpha = lifeColor.getAlpha();
-                            lifeColor = new Color(lifeColor.getRGB());
-                            // merge with surface
-                            img.pixels[i] = Component.mapColor(
-                                    new Color(img.pixels[i]), lifeColor,
-                                    lifeAlpha, 255).getRGB();
+                            img.pixels[i] = mergeTransparently(life.sprite.pixels[i], img.pixels[i]);
                         }
                     }
                     // Gas
                     if (showClouds && (gas.sprite.pixels[i] >> 24 & 255) > 0) {
-                        Color gasColor = new Color(gas.sprite.pixels[i], true);
-                        // extract alpha
-                        int gasAlpha = gasColor.getAlpha();
-                        gasColor = new Color(gasColor.getRGB());
-                        // merge with everything below
-                        img.pixels[i] = Component.mapColor(
-                                new Color(img.pixels[i]), gasColor,
-                                gasAlpha, 255).getRGB();
+                        img.pixels[i] = mergeTransparently(gas.sprite.pixels[i], img.pixels[i]);
                     }
                 }
             }
         }
 
         return img;
+    }
+
+    private int mergeTransparently(int newColor, int baseColor) {
+        Color newColorColor = new Color(newColor, true);
+        int newAlpha = newColorColor.getAlpha();
+        newColorColor = new Color(newColorColor.getRGB());
+        return Component.mapColor(
+                new Color(baseColor), newColorColor,
+                newAlpha, 255).getRGB();
     }
 
     private void displaySeed() {
