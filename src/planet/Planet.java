@@ -111,12 +111,12 @@ public class Planet {
                     // todo: shadow stuff
                     img.pixels[i] = shadow.pixels[i];
                 // Not in shadow
-                } else {
+                } else {*/
                     // Ice
                     if ((ice.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = ice.sprite.pixels[i];
                     // Liquid
-                    } else */if ((liquid.sprite.pixels[i] >> 24 & 255) > 0) {
+                    } else if ((liquid.sprite.pixels[i] >> 24 & 255) > 0) {
                         img.pixels[i] = liquid.sprite.pixels[i];
                     // Surface
                     } else {
