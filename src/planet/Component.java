@@ -2,6 +2,7 @@ package planet;
 
 import core.Main;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
@@ -22,6 +23,12 @@ abstract class Component {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(description, Main.WIDTH / 2f, height);
+    }
+
+    void displayTextToGraphics(float height, PGraphics graphics) {
+        graphics.fill(255);
+        graphics.textSize(20);
+        graphics.text(description, Main.WIDTH / 2f, height);
     }
 
     PImage createImage(PImage base) {

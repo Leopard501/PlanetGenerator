@@ -119,5 +119,11 @@ public class Main extends PApplet {
                 planet = new Planet(newSeed);
             }
         }
+        if (key == 'p') {
+            planet.savePlanet();
+        }
+        if (key == 's') {
+            planet.saveScreen();
+        }
     }
 }

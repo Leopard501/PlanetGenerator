@@ -3,9 +3,11 @@ package planet;
 import core.Main;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
+import java.io.File;
 
 import static processing.core.PConstants.ARGB;
 
@@ -65,6 +67,32 @@ public class Planet {
         lights.displayText(HEIGHT + 100 + 30 * 5);
         displayStarType(HEIGHT + 100 + 30 * 6);
         displaySettings();
+    }
+
+    public void savePlanet() {
+        createImage().save(new File("").getAbsolutePath() + "/saved planets/" + seed + ".png");
+    }
+
+    public void saveScreen() {
+        PGraphics graphics = Main.app.createGraphics(Main.WIDTH, Main.HEIGHT);
+        graphics.beginDraw();
+
+        graphics.imageMode(PConstants.CENTER);
+        graphics.textAlign(PConstants.CENTER);
+        graphics.background(0);
+
+        displaySeedToGraphics(graphics);
+        graphics.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
+        surface.displayTextToGraphics(HEIGHT + 100, graphics);
+        liquid.displayTextToGraphics(HEIGHT + 100 + 30, graphics);
+        gas.displayTextToGraphics(HEIGHT + 100 + 30 * 2, graphics);
+        ice.displayTextToGraphics(HEIGHT + 100 + 30 * 3, graphics);
+        life.displayTextToGraphics(HEIGHT + 100 + 30 * 4, graphics);
+        lights.displayTextToGraphics(HEIGHT + 100 + 30 * 5, graphics);
+        displayStarTypeToGraphics(HEIGHT + 100 + 30 * 6, graphics);
+
+        graphics.endDraw();
+        graphics.save(new File("").getAbsolutePath() + "/screenshots/" + seed + ".png");
     }
 
     private void displaySettings() {
@@ -160,10 +188,22 @@ public class Planet {
         Main.app.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
+    private void displaySeedToGraphics(PGraphics graphics) {
+        graphics.textSize(32);
+        graphics.fill(Color.YELLOW.getRGB());
+        graphics.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
+    }
+
     private void displayStarType(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);
+    }
+
+    private void displayStarTypeToGraphics(float height, PGraphics graphics) {
+        graphics.fill(255);
+        graphics.textSize(20);
+        graphics.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);
     }
 
     private boolean isHabitable(Liquid liquid) {
