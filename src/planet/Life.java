@@ -1,11 +1,8 @@
 package planet;
 
 import core.Main;
-import processing.core.PImage;
 
 import java.awt.*;
-
-import static planet.Planet.IMG_SIZE;
 
 class Life extends Component {
 
@@ -37,7 +34,14 @@ class Life extends Component {
     Type type;
 
     // Should be disabled if the planet has weird liquids on it
-    Life(Lighting.Star star, boolean isHabitable) {
+    Life(Lighting.Star star, boolean isHabitable, long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         if (isHabitable) shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         else shape = Shape.None;
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
@@ -67,5 +71,26 @@ class Life extends Component {
 
     private Type pickType(Type... types) {
         return types[(int) Main.app.random(types.length)];
+    }
+
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Polar;
+                type = Type.RedAlgae;
+                low = type.color;
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
+                description = "Polar Strange Life";
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
+                description = "No Physical Life";
+            }
+        }
     }
 }

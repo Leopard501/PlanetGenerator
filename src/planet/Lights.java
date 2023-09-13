@@ -63,7 +63,14 @@ public class Lights extends Component {
     Type type;
 
     // Should be disabled if there are no complex plants
-    Lights(boolean hasComplexLife) {
+    Lights(boolean hasComplexLife, long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         if (!hasComplexLife) shape = Shape.None;
         else shape = pick(Shape.class);
 
@@ -80,6 +87,27 @@ public class Lights extends Component {
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
+        }
+    }
+
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Towns;
+                type = Type.Red;
+                low = type.color.get();
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
+                description = "Strange Lights";
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.Roads;
+                low = new Color(0x00FF33);
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
+                description = "Digital Busses";
+            }
         }
     }
 }

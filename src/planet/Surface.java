@@ -62,7 +62,14 @@ class Surface extends Component {
     Shape shape;
     Type type;
 
-    Surface() {
+    Surface(long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -79,5 +86,24 @@ class Surface extends Component {
         description += " Surface";
     }
 
-
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Fissured;
+                type = Type.Igneous;
+                low = type.low.get();
+                high = type.high.get();
+                sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
+                description = type.name() + " " + shape.name();
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.Roads;
+                low = Color.BLACK;
+                high = new Color(0x00FF33);
+                sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
+                description = "Digital Surface";
+            }
+        }
+    }
 }

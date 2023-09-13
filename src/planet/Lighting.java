@@ -34,16 +34,40 @@ class Lighting {
     private final PVector planetPos;
 
     final Star star;
+    final Color highlight;
+    final Color shadow;
+    final String starDescription;
 
     private float time;
     private PVector shadowPos;
     private float shadowRad;
     private boolean useOutside;
 
-    Lighting(float rate) {
-        this.rate = rate;
-
-        star = Star.values()[(int) Main.app.random(Star.values().length)];
+    Lighting(float rate, long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                this.rate = -0.005f;
+                star = Star.values()[(int) Main.app.random(Star.values().length)];
+                starDescription = "Dark Star";
+                highlight = Color.RED;
+                shadow = new Color(0x1F0000);
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                this.rate = 0.005f;
+                star = Star.values()[(int) Main.app.random(Star.values().length)];
+                starDescription = "Digital Light Source";
+                highlight = Color.GREEN;
+                shadow = Color.BLACK;
+            }
+            default -> {
+                this.rate = rate;
+                star = Star.values()[(int) Main.app.random(Star.values().length)];
+                starDescription = star.name() + " Type Star";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
+        }
 
         planetPos = new PVector(8, 8);
         time = 3.2f;
@@ -75,7 +99,7 @@ class Lighting {
                 if (dayNightStatus.equals(Planet.DayNightStatus.Night)) visible = planetAlph == 255;
                 else if (dayNightStatus.equals(Planet.DayNightStatus.Day)) visible = false;
 
-                if (visible) shadow.pixels[loc] = star.shadow.getRGB();
+                if (visible) shadow.pixels[loc] = this.shadow.getRGB();
                 else shadow.pixels[loc] = 0x00000000;
             }
         }

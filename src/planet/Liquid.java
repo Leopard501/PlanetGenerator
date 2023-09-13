@@ -103,7 +103,14 @@ class Liquid extends Component {
 
     boolean glows;
 
-    Liquid() {
+    Liquid(long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -119,10 +126,30 @@ class Liquid extends Component {
         }
 
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
-        if (shape == Shape.None) description = "No liquid";
+        if (shape == Shape.None) description = "No Liquid";
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
+        }
+    }
+
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Oceans;
+                high = Color.RED;
+                low = new Color(0x490000);
+                sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
+                description = "Blood Seas";
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = new Color(0x00FF33);
+                sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
+                description = "No liquid";
+            }
         }
     }
 }

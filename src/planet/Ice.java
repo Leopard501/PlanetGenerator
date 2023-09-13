@@ -70,7 +70,14 @@ public class Ice extends Component {
     Type type;
 
     // Should be disabled if the type is Ice and there is hot liquid
-    Ice(boolean isCool) {
+    Ice(boolean isCool, long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -84,10 +91,31 @@ public class Ice extends Component {
         if (type != null) if (!isCool && type.equals(Type.Ice)) shape = Shape.None;
 
         sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
-        if (shape == Shape.None) description = "No sheets";
+        if (shape == Shape.None) description = "No Sheets";
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
+        }
+    }
+
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Burgs;
+                type = Type.Obsidian;
+                low = type.low.get();
+                high = type.high.get();
+                sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
+                description = type.name() + " " + shape.name();
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
+                description = "No Sheets";
+            }
         }
     }
 }

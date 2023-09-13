@@ -66,7 +66,14 @@ class Gas extends Component {
     Shape shape;
     Type type;
 
-    Gas() {
+    Gas(long seed) {
+        for (long secretSeed : SECRET_SEEDS) {
+            if (seed == secretSeed) {
+                secretSeeds(seed);
+                return;
+            }
+        }
+
         shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -83,5 +90,26 @@ class Gas extends Component {
             else description = shape.name() + " Unknown Gas";
         }
         description += " Clouds";
+    }
+
+    private void secretSeeds(long seed) {
+        switch ("" + seed) {
+            case "666" -> {
+                shape = Shape.Sparse;
+                type = Type.Smoke;
+                low = type.color.get();
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
+                description = "No Clouds";
+            }
+        }
     }
 }

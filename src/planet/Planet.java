@@ -1,7 +1,6 @@
 package planet;
 
 import core.Main;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -39,16 +38,17 @@ public class Planet {
         this.seed = seed;
         Main.app.randomSeed(seed);
 
-        surface = new Surface();
-        liquid = new Liquid();
-        gas = new Gas();
-        ice = new Ice(isCool(liquid));
+        surface = new Surface(seed);
+        liquid = new Liquid(seed);
+        gas = new Gas(seed);
+        ice = new Ice(isCool(liquid), seed);
         lighting = new Lighting(
                 ice.shape.equals(Ice.Shape.EyeballSheet) ?
                         0 :
-                        Main.app.random(-0.01f, 0.01f));
-        life = new Life(lighting.star, isHabitable(liquid));
-        lights = new Lights(hasComplexLife(life));
+                        Main.app.random(-0.01f, 0.01f),
+                seed);
+        life = new Life(lighting.star, isHabitable(liquid), seed);
+        lights = new Lights(hasComplexLife(life), seed);
     }
 
     public void update() {
@@ -66,6 +66,7 @@ public class Planet {
         life.displayText(HEIGHT + 100 + 30 * 4);
         lights.displayText(HEIGHT + 100 + 30 * 5);
         displayStarType(HEIGHT + 100 + 30 * 6);
+        displaySecretMessage(HEIGHT + 100 + 30 * 7);
         displaySettings();
     }
 
@@ -90,6 +91,7 @@ public class Planet {
         life.displayTextToGraphics(HEIGHT + 100 + 30 * 4, graphics);
         lights.displayTextToGraphics(HEIGHT + 100 + 30 * 5, graphics);
         displayStarTypeToGraphics(HEIGHT + 100 + 30 * 6, graphics);
+        displayStarTypeToGraphics(HEIGHT + 100 + 30 * 7, graphics);
 
         graphics.endDraw();
         graphics.save(new File("").getAbsolutePath() + "/screenshots/" + seed + ".png");
@@ -97,6 +99,7 @@ public class Planet {
 
     private void displaySettings() {
         Main.app.textAlign(PConstants.LEFT);
+        Main.app.fill(255);
 
         if (!showClouds) Main.app.text("Clouds hidden", 10, Main.HEIGHT - 10);
         if (dayNightStatus.equals(DayNightStatus.Day)) Main.app.text("Day only", 10, Main.HEIGHT - 10 - 20);
@@ -141,7 +144,7 @@ public class Planet {
                     if (showClouds && (gas.sprite.pixels[i] >> 24 & 255) > 0) {
                         Color newColorColor = new Color(gas.sprite.pixels[i], true);
                         int newAlpha = newColorColor.getAlpha();
-                        newColorColor = new Color(lighting.star.shadow.getRGB());
+                        newColorColor = new Color(lighting.shadow.getRGB());
                         img.pixels[i] = Component.mapColor(
                                 new Color(img.pixels[i]), newColorColor,
                                 newAlpha, 255).getRGB();
@@ -184,26 +187,26 @@ public class Planet {
 
     private void displaySeed() {
         Main.app.textSize(32);
-        Main.app.fill(Color.YELLOW.getRGB());
+        Main.app.fill(getSeedColor().getRGB());
         Main.app.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
     private void displaySeedToGraphics(PGraphics graphics) {
         graphics.textSize(32);
-        graphics.fill(Color.YELLOW.getRGB());
+        graphics.fill(getSeedColor().getRGB());
         graphics.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
     private void displayStarType(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
-        Main.app.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);
+        Main.app.text(lighting.starDescription, Main.WIDTH / 2f, height);
     }
 
     private void displayStarTypeToGraphics(float height, PGraphics graphics) {
         graphics.fill(255);
         graphics.textSize(20);
-        graphics.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);
+        graphics.text(lighting.starDescription, Main.WIDTH / 2f, height);
     }
 
     private boolean isHabitable(Liquid liquid) {
@@ -229,5 +232,47 @@ public class Planet {
 
         return life.type.equals(Life.Type.ConiferousPlants) ||
                 life.type.equals(Life.Type.DeciduousPlants);
+    }
+
+    private Color getSeedColor() {
+        switch ("" + seed) {
+            case "666" -> {
+                return Color.RED;
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                return new Color(0x00FF33);
+            }
+            default -> {
+                return Color.YELLOW;
+            }
+        }
+    }
+
+    private String getSecretMessage() {
+        switch ("" + seed) {
+            case "666" -> {
+                return "65-83-67-73-73";
+            }
+            // "ASCII"
+            case "6583677373" -> {
+                return "ASCII";
+            }
+            default -> {
+                return "";
+            }
+        }
+    }
+
+    private void displaySecretMessage(float height) {
+        Main.app.fill(getSeedColor().getRGB());
+        Main.app.textSize(20);
+        Main.app.text(getSecretMessage(), Main.WIDTH / 2f, height);
+    }
+
+    private void displaySecretMessageToGraphics(float height, PGraphics graphics) {
+        graphics.fill(getSeedColor().getRGB());
+        graphics.textSize(20);
+        graphics.text(getSecretMessage(), Main.WIDTH / 2f, height);
     }
 }

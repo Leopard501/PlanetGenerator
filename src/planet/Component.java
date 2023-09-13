@@ -14,6 +14,11 @@ abstract class Component {
 
     static final int RANDOM_COLOR_CHANCE = 7;
 
+    static final long[] SECRET_SEEDS = {
+            666,
+            6583677373L
+    };
+
     Color low;
     Color high;
     PImage sprite;
