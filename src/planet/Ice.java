@@ -105,7 +105,6 @@ public class Ice extends Component {
                 type = Type.Obsidian;
                 low = type.low.get();
                 high = type.high.get();
-                sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
                 description = type.name() + " " + shape.name();
             }
             // "ASCII"
@@ -113,9 +112,17 @@ public class Ice extends Component {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
                 description = "No Sheets";
             }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.MediumCaps;
+                type = Type.Ice;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
+            }
         }
+        sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
     }
 }

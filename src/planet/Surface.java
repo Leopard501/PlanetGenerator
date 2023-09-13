@@ -93,7 +93,6 @@ class Surface extends Component {
                 type = Type.Igneous;
                 low = type.low.get();
                 high = type.high.get();
-                sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
                 description = type.name() + " " + shape.name();
             }
             // "ASCII"
@@ -101,9 +100,17 @@ class Surface extends Component {
                 shape = Shape.Roads;
                 low = Color.BLACK;
                 high = new Color(0x00FF33);
-                sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
-                description = "Digital Surface";
+                description = "8-Bit Surface";
+            }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.Hilly;
+                type = Type.Mud;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
             }
         }
+        sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
     }
 }

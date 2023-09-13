@@ -99,7 +99,6 @@ class Gas extends Component {
                 type = Type.Smoke;
                 low = type.color.get();
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
                 description = shape.name() + " " + type.name() + " Clouds";
             }
             // "ASCII"
@@ -107,9 +106,17 @@ class Gas extends Component {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
                 description = "No Clouds";
             }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.Sparse;
+                type = Type.Water;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
         }
+        sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
     }
 }

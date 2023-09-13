@@ -139,7 +139,6 @@ class Liquid extends Component {
                 shape = Shape.Oceans;
                 high = Color.RED;
                 low = new Color(0x490000);
-                sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
                 description = "Blood Seas";
             }
             // "ASCII"
@@ -147,9 +146,17 @@ class Liquid extends Component {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = new Color(0x00FF33);
-                sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
                 description = "No liquid";
             }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.Oceans;
+                type = Type.SaltWater;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
+            }
         }
+        sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
     }
 }

@@ -80,7 +80,6 @@ class Life extends Component {
                 type = Type.RedAlgae;
                 low = type.color;
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
                 description = "Polar Strange Life";
             }
             // "ASCII"
@@ -88,9 +87,17 @@ class Life extends Component {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
                 description = "No Physical Life";
             }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.Global;
+                type = Type.DeciduousPlants;
+                low = type.color;
+                high = low;
+                description = "Global Diverse Life";
+            }
         }
+        sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
     }
 }

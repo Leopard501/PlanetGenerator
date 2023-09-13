@@ -56,9 +56,17 @@ class Lighting {
             case "6583677373" -> {
                 this.rate = 0.005f;
                 star = Star.values()[(int) Main.app.random(Star.values().length)];
-                starDescription = "Digital Light Source";
+                starDescription = "Emulated Light Source";
                 highlight = Color.GREEN;
                 shadow = Color.BLACK;
+            }
+            // "EARTH"
+            case "6965828472" -> {
+                this.rate = 0.005f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
             }
             default -> {
                 this.rate = rate;

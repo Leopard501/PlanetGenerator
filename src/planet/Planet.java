@@ -243,6 +243,10 @@ public class Planet {
             case "6583677373" -> {
                 return new Color(0x00FF33);
             }
+            // "EARTH"
+            case "6965828472" -> {
+                return new Color(0x006FFF);
+            }
             default -> {
                 return Color.YELLOW;
             }
@@ -256,7 +260,11 @@ public class Planet {
             }
             // "ASCII"
             case "6583677373" -> {
-                return "ASCII";
+                return "Your Digital Home";
+            }
+            // "EARTH"
+            case "6965828472" -> {
+                return "An Uneasy Future";
             }
             default -> {
                 return "";

@@ -97,7 +97,6 @@ public class Lights extends Component {
                 type = Type.Red;
                 low = type.color.get();
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
                 description = "Strange Lights";
             }
             // "ASCII"
@@ -105,9 +104,17 @@ public class Lights extends Component {
                 shape = Shape.Roads;
                 low = new Color(0x00FF33);
                 high = low;
-                sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
-                description = "Digital Busses";
+                description = "Virtual Busses";
+            }
+            // "EARTH"
+            case "6965828472" -> {
+                shape = Shape.Cities;
+                type = Type.Incandescent;
+                low = type.color.get();
+                high = low;
+                description = type.name() + " " + shape.name();
             }
         }
+        sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
     }
 }

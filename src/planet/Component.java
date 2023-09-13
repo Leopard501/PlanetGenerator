@@ -16,7 +16,8 @@ abstract class Component {
 
     static final long[] SECRET_SEEDS = {
             666,
-            6583677373L
+            6583677373L,
+            6965828472L
     };
 
     Color low;
