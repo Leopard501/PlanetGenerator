@@ -247,6 +247,10 @@ public class Planet {
             case "6965828472" -> {
                 return new Color(0x006FFF);
             }
+            // "MARS"
+            case "77658283" -> {
+                return new Color(203, 70, 30);
+            }
             default -> {
                 return Color.YELLOW;
             }
@@ -265,6 +269,10 @@ public class Planet {
             // "EARTH"
             case "6965828472" -> {
                 return "An Uneasy Future";
+            }
+            // "MARS"
+            case "77658283" -> {
+                return "False Hope";
             }
             default -> {
                 return "";

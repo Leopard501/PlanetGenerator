@@ -122,6 +122,14 @@ public class Ice extends Component {
                 high = type.high.get();
                 description = type.name() + " " + shape.name();
             }
+            // "MARS"
+            case "77658283" -> {
+                shape = Shape.SmallCaps;
+                type = Type.Ice;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
+            }
         }
         sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
     }

@@ -116,6 +116,14 @@ class Gas extends Component {
                 high = low;
                 description = shape.name() + " " + type.name() + " Clouds";
             }
+            // "MARS"
+            case "77658283" -> {
+                shape = Shape.Trace;
+                type = Type.CO2;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
     }

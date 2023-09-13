@@ -141,8 +141,8 @@ class Liquid extends Component {
                 low = new Color(0x490000);
                 description = "Blood Seas";
             }
-            // "ASCII"
-            case "6583677373" -> {
+            // "ASCII", "MARS"
+            case "6583677373", "77658283" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = new Color(0x00FF33);

@@ -53,7 +53,7 @@ class Life extends Component {
         high = low;
 
         sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
-        if (shape == Shape.None) description = "No life";
+        if (shape == Shape.None) description = "No Life";
         else {
             if (type != null) description = shape.name() + " " + type.name();
             else description = shape.name() + " Unknown Life";
@@ -96,6 +96,13 @@ class Life extends Component {
                 low = type.color;
                 high = low;
                 description = "Global Diverse Life";
+            }
+            // "MARS"
+            case "77658283" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                description = "No Life";
             }
         }
         sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));

@@ -93,7 +93,7 @@ class Surface extends Component {
                 type = Type.Igneous;
                 low = type.low.get();
                 high = type.high.get();
-                description = type.name() + " " + shape.name();
+                description = type.name() + " " + shape.name() + " Surface";
             }
             // "ASCII"
             case "6583677373" -> {
@@ -108,7 +108,15 @@ class Surface extends Component {
                 type = Type.Mud;
                 low = type.low.get();
                 high = type.high.get();
-                description = type.name() + " " + shape.name();
+                description = type.name() + " " + shape.name() + " Surface";
+            }
+            // "MARS"
+            case "77658283" -> {
+                shape = Shape.Mountainous;
+                type = Type.Rust;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name() + " Surface";
             }
         }
         sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));

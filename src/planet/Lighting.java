@@ -68,6 +68,14 @@ class Lighting {
                 highlight = star.highlight;
                 shadow = star.shadow;
             }
+            // "MARS"
+            case "77658283" -> {
+                this.rate = 0.004f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
             default -> {
                 this.rate = rate;
                 star = Star.values()[(int) Main.app.random(Star.values().length)];

@@ -114,6 +114,14 @@ public class Lights extends Component {
                 high = low;
                 description = type.name() + " " + shape.name();
             }
+            // "MARS"
+            case "77658283" -> {
+                shape = Shape.Campfires;
+                type = Type.LED;
+                low = type.color.get();
+                high = low;
+                description = "Occasional Rovers";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
     }
