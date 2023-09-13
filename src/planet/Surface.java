@@ -1,12 +1,9 @@
 package planet;
 
 import core.Main;
-import processing.core.PImage;
 
 import java.awt.*;
 import java.util.function.Supplier;
-
-import static planet.Planet.IMG_SIZE;
 
 class Surface extends Component {
 
@@ -81,4 +78,6 @@ class Surface extends Component {
         else description = "Unknown " + shape.name();
         description += " Surface";
     }
+
+
 }

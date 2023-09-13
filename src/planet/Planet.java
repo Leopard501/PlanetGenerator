@@ -25,7 +25,7 @@ public class Planet {
     public boolean showClouds = true;
     public DayNightStatus dayNightStatus = DayNightStatus.Normal;
 
-    public final int seed;
+    public final long seed;
 
     private final Surface surface;
     private final Liquid liquid;
@@ -35,7 +35,7 @@ public class Planet {
     private final Lights lights;
     private final Lighting lighting;
 
-    public Planet(int seed) {
+    public Planet(long seed) {
         this.seed = seed;
         Main.app.randomSeed(seed);
 

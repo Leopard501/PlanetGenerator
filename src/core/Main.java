@@ -14,7 +14,7 @@ public class Main extends PApplet {
 
     public static PApplet app;
     public static HashMap<String, PImage> sprites;
-    public static ArrayList<Integer> seeds;
+    public static ArrayList<Long> seeds;
 
     public static boolean entryMode;
 
@@ -62,7 +62,7 @@ public class Main extends PApplet {
 
     private void genPlanet() {
         Main.app.randomSeed(Main.app.millis());
-        int seed = (int) Main.app.random(1024);
+        long seed = (int) Main.app.random(1024);
         Main.app.randomSeed(seed);
 
         seeds.add(seed);
@@ -108,7 +108,7 @@ public class Main extends PApplet {
         if (entryMode) {
             if ((int) key >= 48 && (int) key <= 57) {
                 int entered = ((int) key) - 48;
-                int newSeed = planet.seed;
+                long newSeed = planet.seed;
 
                 if (newSeed == 0) newSeed = entered;
                 else {
