@@ -83,7 +83,7 @@ public class Lights extends Component {
         high = low;
 
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
-        if (shape == Shape.None) description = "No complex life";
+        if (shape == Shape.None) description = "No Complex Life";
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
@@ -127,7 +127,22 @@ public class Lights extends Component {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
-                description = "No complex life";
+                description = "No Complex Life";
+            }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                description = "Unsettling Beings";
+            }
+            // LIGHTS
+            case "708584858269" -> {
+                shape = Shape.Towns;
+                type = Type.Firelit;
+                low = type.color.get();
+                high = low;
+                description = type.name() + " " + shape.name();
             }
         }
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));

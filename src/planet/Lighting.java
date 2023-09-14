@@ -60,8 +60,8 @@ class Lighting {
                 highlight = Color.GREEN;
                 shadow = Color.BLACK;
             }
-            // "EARTH"
-            case "6965828472" -> {
+            // "EARTH", FUTURE
+            case "6965828472", "708584858269" -> {
                 this.rate = 0.005f;
                 star = Star.G;
                 starDescription = "The Sun";
@@ -115,6 +115,14 @@ class Lighting {
                 starDescription = "The Sun";
                 highlight = star.highlight;
                 shadow = star.shadow;
+            }
+            // KRAKEN
+            case "758265756978" -> {
+                this.rate = -0.002f;
+                star = Star.values()[(int) Main.app.random(Star.values().length)];
+                starDescription = "Dark Star";
+                highlight = Color.BLUE;
+                shadow = new Color(0x00091F);
             }
             default -> {
                 this.rate = rate;

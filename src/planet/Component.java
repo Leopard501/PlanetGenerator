@@ -25,6 +25,8 @@ abstract class Component {
             836584858278L,
             77797978L,
             8473846578L,
+            758265756978L,
+            708584858269L
     };
 
     Color low;

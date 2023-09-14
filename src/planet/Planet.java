@@ -271,6 +271,14 @@ public class Planet {
             case "8473846578" -> {
                 return new Color(200, 180, 100);
             }
+            // KRAKEN
+            case "758265756978" -> {
+                return new Color(0x030A2D);
+            }
+            // FUTURE
+            case "708584858269" -> {
+                return new Color(190, 139, 35);
+            }
             default -> {
                 return Color.YELLOW;
             }

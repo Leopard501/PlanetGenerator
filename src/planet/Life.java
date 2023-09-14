@@ -104,6 +104,20 @@ class Life extends Component {
                 high = low;
                 description = "No Life";
             }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                description = "Deep Life";
+            }
+            // FUTURE
+            case "708584858269" -> {
+                shape = Shape.Sparse;
+                low = new Color(190, 139, 35);
+                high = low;
+                description = "Struggling Life";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
     }

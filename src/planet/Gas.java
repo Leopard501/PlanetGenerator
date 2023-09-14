@@ -156,6 +156,21 @@ class Gas extends Component {
                 high = low;
                 description = shape.name() + " " + type.name() + " Clouds";
             }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.Dense;
+                low = new Color(0x3A373D);
+                high = low;
+                description = shape.name() + " Storm Clouds";
+            }
+            // FUTURE
+            case "708584858269" -> {
+                shape = Shape.Dense;
+                type = Type.CO2;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
     }

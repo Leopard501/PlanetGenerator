@@ -172,6 +172,21 @@ class Liquid extends Component {
                 high = type.high.get();
                 description = type.name() + " " + shape.name();
             }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.GlobalOcean;
+                high = new Color(0x092952);
+                low = new Color(0x030A2D);
+                description = "Dark Ocean";
+            }
+            // FUTURE
+            case "708584858269" -> {
+                shape = Shape.Oceans;
+                type = Type.FreshWater;
+                low = type.low.get();
+                high = type.high.get();
+                description = "Warm Oceans";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
     }

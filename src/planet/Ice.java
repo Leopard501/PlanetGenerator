@@ -108,7 +108,13 @@ public class Ice extends Component {
                 description = type.name() + " " + shape.name();
             }
             // "ASCII", "MERCURY", "VENUS", "JUPITER", SATURN, MOON, TITAN
-            case "6583677373", "77698267858289", "8669788583", "74858073846982", "836584858278", "77797978", "8473846578" -> {
+            case "6583677373",
+                    "77698267858289",
+                    "8669788583",
+                    "74858073846982",
+                    "836584858278",
+                    "77797978",
+                    "8473846578" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
@@ -126,6 +132,21 @@ public class Ice extends Component {
             case "77658283" -> {
                 shape = Shape.SmallCaps;
                 type = Type.Ice;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
+            }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.Burgs;
+                high = new Color(0x3c3c50);
+                low = new Color(0x1b1b1b);
+                description = "Barren Islands";
+            }
+            // FUTURE
+            case "708584858269" -> {
+                shape = Shape.Burgs;
+                type = Type.Waste;
                 low = type.low.get();
                 high = type.high.get();
                 description = type.name() + " " + shape.name();

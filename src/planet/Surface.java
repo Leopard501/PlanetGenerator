@@ -102,8 +102,8 @@ class Surface extends Component {
                 high = new Color(0x00FF33);
                 description = "8-Bit Surface";
             }
-            // "EARTH"
-            case "6965828472" -> {
+            // "EARTH", FUTURE
+            case "6965828472", "708584858269" -> {
                 shape = Shape.Hilly;
                 type = Type.Mud;
                 low = type.low.get();
@@ -146,6 +146,14 @@ class Surface extends Component {
                 high = new Color(130, 100, 40);
                 low = new Color(240, 210, 150);
                 description = "Ice Ih " + shape.name() + " Surface";
+            }
+            // KRAKEN
+            case "758265756978" -> {
+                shape = Shape.Mountainous;
+                type = Type.Igneous;
+                low = type.low.get();
+                high = type.high.get();
+                description = "Hidden Surface";
             }
         }
         sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
