@@ -76,6 +76,46 @@ class Lighting {
                 highlight = star.highlight;
                 shadow = star.shadow;
             }
+            // "MERCURY"
+            case "77698267858289" -> {
+                this.rate = 0.0005f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
+            // VENUS
+            case "8669788583" -> {
+                this.rate = -0.0002f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
+            // JUPITER, SATURN
+            case "74858073846982", "836584858278" -> {
+                this.rate = -0.020f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
+            // MOON
+            case "77797978" -> {
+                this.rate = 0.0016f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
+            // TITAN
+            case "8473846578" -> {
+                this.rate = 0.003f;
+                star = Star.G;
+                starDescription = "The Sun";
+                highlight = star.highlight;
+                shadow = star.shadow;
+            }
             default -> {
                 this.rate = rate;
                 star = Star.values()[(int) Main.app.random(Star.values().length)];

@@ -141,17 +141,33 @@ class Liquid extends Component {
                 low = new Color(0x490000);
                 description = "Blood Seas";
             }
-            // "ASCII", "MARS"
-            case "6583677373", "77658283" -> {
+            // "ASCII", "MARS", "MERCURY", "VENUS", MOON
+            case "6583677373", "77658283", "77698267858289", "8669788583", "77797978" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
-                high = new Color(0x00FF33);
+                high = Color.BLACK;
                 description = "No liquid";
             }
             // "EARTH"
             case "6965828472" -> {
                 shape = Shape.Oceans;
                 type = Type.SaltWater;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name();
+            }
+            // JUPITER, SATURN
+            case "74858073846982", "836584858278" -> {
+                shape = Shape.GlobalOcean;
+                type = Type.LiquidNitrogen;
+                low = type.low.get();
+                high = type.high.get();
+                description = "MetallicHydrogen " + shape.name();
+            }
+            // TITAN
+            case "8473846578" -> {
+                shape = Shape.Seas;
+                type = Type.LiquidMethane;
                 low = type.low.get();
                 high = type.high.get();
                 description = type.name() + " " + shape.name();

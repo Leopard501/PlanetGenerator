@@ -118,6 +118,35 @@ class Surface extends Component {
                 high = type.high.get();
                 description = type.name() + " " + shape.name() + " Surface";
             }
+            // "MERCURY", MOON
+            case "77698267858289", "77797978" -> {
+                shape = Shape.Cratered;
+                high = new Color(0xC4C4C4);
+                low = new Color(0x434357);
+                description = "Igneous " + shape.name() + " Surface";
+            }
+            // "VENUS"
+            case "8669788583" -> {
+                shape = Shape.Mountainous;
+                type = Type.Igneous;
+                low = type.low.get();
+                high = type.high.get();
+                description = type.name() + " " + shape.name() + " Surface";
+            }
+            // JUPITER, SATURN
+            case "74858073846982", "836584858278" -> {
+                shape = Shape.Roads;
+                low = Color.BLACK;
+                high = Color.BLACK;
+                description = "No Surface";
+            }
+            // TITAN
+            case "8473846578" -> {
+                shape = Shape.Speckled;
+                high = new Color(130, 100, 40);
+                low = new Color(240, 210, 150);
+                description = "Ice Ih " + shape.name() + " Surface";
+            }
         }
         sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
     }

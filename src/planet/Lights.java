@@ -114,13 +114,20 @@ public class Lights extends Component {
                 high = low;
                 description = type.name() + " " + shape.name();
             }
-            // "MARS"
-            case "77658283" -> {
+            // "MARS", MOON
+            case "77658283", "77797978" -> {
                 shape = Shape.Campfires;
                 type = Type.LED;
                 low = type.color.get();
                 high = low;
                 description = "Occasional Rovers";
+            }
+            // MERCURY, VENUS, JUPITER, SATURN, TITAN
+            case "77698267858289", "8669788583", "74858073846982", "836584858278", "8473846578" -> {
+                shape = Shape.None;
+                low = Color.BLACK;
+                high = low;
+                description = "No complex life";
             }
         }
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));

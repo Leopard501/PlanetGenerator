@@ -10,7 +10,7 @@ class Gas extends Component {
     private enum Type implements Pickable {
         Water(() -> Color.WHITE, 10),
         Hydrogen(() -> new Color(241, 209, 157), 1),
-        Helium(() -> new Color(253, 204, 197), 1),
+        Helium(() -> new Color(238, 191, 113), 1),
         Acid(() -> new Color(0xC7FFB4), 1),
         Dust(() -> new Color(175, 140, 100), 1),
         Metal(() -> new Color(161, 139, 127), 1),
@@ -101,8 +101,8 @@ class Gas extends Component {
                 high = low;
                 description = shape.name() + " " + type.name() + " Clouds";
             }
-            // "ASCII"
-            case "6583677373" -> {
+            // "ASCII", "MERCURY", MOON
+            case "6583677373", "77698267858289", "77797978" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;
@@ -120,6 +120,38 @@ class Gas extends Component {
             case "77658283" -> {
                 shape = Shape.Trace;
                 type = Type.CO2;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
+            // "VENUS"
+            case "8669788583" -> {
+                shape = Shape.Global;
+                type = Type.CO2;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
+            // JUPITER
+            case "74858073846982" -> {
+                shape = Shape.Global;
+                type = Type.Hydrogen;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
+            // SATURN
+            case "836584858278" -> {
+                shape = Shape.Global;
+                type = Type.Helium;
+                low = type.color.get();
+                high = low;
+                description = shape.name() + " " + type.name() + " Clouds";
+            }
+            // TITAN
+            case "8473846578" -> {
+                shape = Shape.Global;
+                type = Type.Methane;
                 low = type.color.get();
                 high = low;
                 description = shape.name() + " " + type.name() + " Clouds";

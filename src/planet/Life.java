@@ -97,8 +97,8 @@ class Life extends Component {
                 high = low;
                 description = "Global Diverse Life";
             }
-            // "MARS"
-            case "77658283" -> {
+            // "MARS", "MERCURY", "VENUS", JUPITER, SATURN, MOON, TITAN
+            case "77658283", "77698267858289", "8669788583", "74858073846982", "836584858278", "77797978", "8473846578" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;

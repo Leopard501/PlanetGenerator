@@ -71,12 +71,43 @@ public class Main extends PApplet {
 
     @Override
     public void keyReleased() {
-        if (key == ' ' && !entryMode) {
+        if (entryMode) {
+            if (key == '\n') {
+                entryMode = false;
+                seeds.add(planet.seed);
+                seedIdx++;
+            }
+            if ((int) key >= 48 && (int) key <= 57) {
+                int entered = ((int) key) - 48;
+                long newSeed = planet.seed;
+
+                if (newSeed == 0) newSeed = entered;
+                else {
+                    newSeed *= 10;
+                    newSeed += entered;
+                }
+
+                planet = new Planet(newSeed);
+            } else if (((int) key >= 97 && (int) key <= 122)) {
+                int entered = ((int) key) - 32;
+                long newSeed = planet.seed;
+
+                if (newSeed == 0) newSeed = entered;
+                else {
+                    newSeed *= 100;
+                    newSeed += entered;
+                }
+
+                planet = new Planet(newSeed);
+            }
+            return;
+        }
+        if (key == ' ') {
             seedIdx++;
             if (seedIdx == seeds.size()) genPlanet();
             else planet = new Planet(seeds.get(seedIdx));
         }
-        if (key == 'b' && !entryMode) {
+        if (key == 'b') {
             if (seedIdx > 0) seedIdx--;
             planet = new Planet(seeds.get(seedIdx));
         }
@@ -95,29 +126,9 @@ public class Main extends PApplet {
                 planet.dayNightStatus = Planet.DayNightStatus.Night;
             }
         }
-        if (key == 'e') {
-            if (entryMode) {
-                entryMode = false;
-                seeds.add(planet.seed);
-                seedIdx++;
-            } else {
-                entryMode = true;
-                planet = new Planet(0);
-            }
-        }
-        if (entryMode) {
-            if ((int) key >= 48 && (int) key <= 57) {
-                int entered = ((int) key) - 48;
-                long newSeed = planet.seed;
-
-                if (newSeed == 0) newSeed = entered;
-                else {
-                    newSeed *= 10;
-                    newSeed += entered;
-                }
-
-                planet = new Planet(newSeed);
-            }
+        if (key == 'e' || key == '\n') {
+            entryMode = true;
+            planet = new Planet(0);
         }
         if (key == 'p') {
             planet.savePlanet();

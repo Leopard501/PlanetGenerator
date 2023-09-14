@@ -107,8 +107,8 @@ public class Ice extends Component {
                 high = type.high.get();
                 description = type.name() + " " + shape.name();
             }
-            // "ASCII"
-            case "6583677373" -> {
+            // "ASCII", "MERCURY", "VENUS", "JUPITER", SATURN, MOON, TITAN
+            case "6583677373", "77698267858289", "8669788583", "74858073846982", "836584858278", "77797978", "8473846578" -> {
                 shape = Shape.None;
                 low = Color.BLACK;
                 high = low;

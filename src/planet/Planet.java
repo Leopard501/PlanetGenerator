@@ -251,6 +251,26 @@ public class Planet {
             case "77658283" -> {
                 return new Color(203, 70, 30);
             }
+            // "MERCURY", MOON
+            case "77698267858289", "77797978" -> {
+                return new Color(0x777777);
+            }
+            // VENUS
+            case "8669788583" -> {
+                return new Color(240, 225, 195);
+            }
+            // JUPITER
+            case "74858073846982" -> {
+                return new Color(241, 209, 157);
+            }
+            // SATURN
+            case "836584858278" -> {
+                return new Color(238, 191, 113);
+            }
+            // TITAN
+            case "8473846578" -> {
+                return new Color(200, 180, 100);
+            }
             default -> {
                 return Color.YELLOW;
             }
@@ -273,6 +293,18 @@ public class Planet {
             // "MARS"
             case "77658283" -> {
                 return "False Hope";
+            }
+            // JUPITER
+            case "74858073846982" -> {
+                return "A World of Many Moons";
+            }
+            // SATURN
+            case "836584858278" -> {
+                return "Sorry About the Rings";
+            }
+            // TITAN
+            case "8473846578" -> {
+                return "World of Lakes";
             }
             default -> {
                 return "";
