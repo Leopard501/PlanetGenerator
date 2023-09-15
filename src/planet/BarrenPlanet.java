@@ -1,6 +1,7 @@
 package planet;
 
 import core.Main;
+import planet.components.*;
 
 public class BarrenPlanet extends Planet {
 

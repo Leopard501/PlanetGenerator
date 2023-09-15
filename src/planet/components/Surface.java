@@ -1,14 +1,12 @@
-package planet;
+package planet.components;
 
 import core.Main;
-import processing.core.PImage;
+import planet.components.Pickable;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
-import static planet.Planet.IMG_SIZE;
-
-class Surface extends Component {
+public class Surface extends planet.components.Component {
 
     private enum Type implements Pickable {
         Igneous(
@@ -62,10 +60,10 @@ class Surface extends Component {
         Roads
     }
 
-    Shape shape;
-    Type type;
+    public Shape shape;
+    public Type type;
 
-    Surface() {
+    public Surface() {
         shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -79,7 +77,7 @@ class Surface extends Component {
         createAssets();
     }
 
-    void createAssets() {
+    public void createAssets() {
         sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
         if (type != null) description = type.name() + " " + shape.name();
         else description = "Unknown " + shape.name();
