@@ -80,9 +80,12 @@ public class Ice extends Component {
             low = type.low.get();
             high = type.high.get();
         }
-
         if (type != null) if (!isCool && type.equals(Type.Ice)) shape = Shape.None;
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
         if (shape == Shape.None) description = null;
         else {

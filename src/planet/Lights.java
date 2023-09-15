@@ -75,6 +75,10 @@ public class Lights extends Component {
         }
         high = low;
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
         if (shape == Shape.None) description = null;
         else {

@@ -27,13 +27,13 @@ public class Planet {
 
     public final int seed;
 
-    private final Surface surface;
-    private final Liquid liquid;
-    private final Gas gas;
-    private final Life life;
-    private final Ice ice;
-    private final Lights lights;
-    private final Lighting lighting;
+    protected Surface surface;
+    protected Liquid liquid;
+    protected Gas gas;
+    protected Life life;
+    protected Ice ice;
+    protected Lights lights;
+    protected Lighting lighting;
 
     public Planet(int seed) {
         this.seed = seed;
@@ -49,6 +49,12 @@ public class Planet {
                         Main.app.random(-0.01f, 0.01f));
         life = new Life(lighting.star, isHabitable(liquid));
         lights = new Lights(hasComplexLife(life));
+    }
+
+    public static Planet createPlanet(int seed) {
+        if (Main.app.random(4) < 1) return new BarrenPlanet(seed);
+
+        return new Planet(seed);
     }
 
     public void update() {

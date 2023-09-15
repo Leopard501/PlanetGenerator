@@ -76,6 +76,10 @@ class Surface extends Component {
             high = type.high.get();
         }
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_surface_" + shape.name()));
         if (type != null) description = type.name() + " " + shape.name();
         else description = "Unknown " + shape.name();

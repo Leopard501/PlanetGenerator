@@ -66,7 +66,7 @@ public class Main extends PApplet {
         Main.app.randomSeed(seed);
 
         seeds.add(seed);
-        planet = new Planet(seed);
+        planet = Planet.createPlanet(seed);
     }
 
     @Override
@@ -74,11 +74,11 @@ public class Main extends PApplet {
         if (key == ' ' && !entryMode) {
             seedIdx++;
             if (seedIdx == seeds.size()) genPlanet();
-            else planet = new Planet(seeds.get(seedIdx));
+            else planet = Planet.createPlanet((seeds.get(seedIdx)));
         }
         if (key == 'b' && !entryMode) {
             if (seedIdx > 0) seedIdx--;
-            planet = new Planet(seeds.get(seedIdx));
+            planet = Planet.createPlanet((seeds.get(seedIdx)));
         }
         if (key == 'c') planet.showClouds = !planet.showClouds;
         if (key == 'd') {
@@ -102,7 +102,7 @@ public class Main extends PApplet {
                 seedIdx++;
             } else {
                 entryMode = true;
-                planet = new Planet(0);
+                planet = Planet.createPlanet(0);
             }
         }
         if (entryMode) {
@@ -116,7 +116,7 @@ public class Main extends PApplet {
                     newSeed += entered;
                 }
 
-                planet = new Planet(newSeed);
+                planet = Planet.createPlanet(newSeed);
             }
         }
         if (key == 'p') {

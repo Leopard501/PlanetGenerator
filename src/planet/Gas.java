@@ -39,7 +39,7 @@ class Gas extends Component {
         public int getOrdinal() {return this.ordinal();}
     }
 
-    private enum Shape implements Pickable {
+    enum Shape implements Pickable {
         None(3),
         Trace(2),
         Sparse(1),
@@ -76,6 +76,10 @@ class Gas extends Component {
         }
         high = low;
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
         if (shape == Shape.None) {
             description = null;

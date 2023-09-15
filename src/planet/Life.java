@@ -48,6 +48,10 @@ class Life extends Component {
         }
         high = low;
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
         if (shape == Shape.None) description = null;
         else {

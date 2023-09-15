@@ -118,6 +118,10 @@ class Liquid extends Component {
             glows = type.equals(Type.MoltenRock) || type.equals(Type.MoltenMetal);
         }
 
+        createAssets();
+    }
+
+    void createAssets() {
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
         if (shape == Shape.None) description = null;
         else {
