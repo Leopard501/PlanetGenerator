@@ -58,14 +58,26 @@ public class Planet {
     public void display() {
         Main.app.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
 
+        int descCount = 1;
         displaySeed();
         surface.displayText(HEIGHT + 100);
-        liquid.displayText(HEIGHT + 100 + 30);
-        gas.displayText(HEIGHT + 100 + 30 * 2);
-        ice.displayText(HEIGHT + 100 + 30 * 3);
-        life.displayText(HEIGHT + 100 + 30 * 4);
-        lights.displayText(HEIGHT + 100 + 30 * 5);
-        displayStarType(HEIGHT + 100 + 30 * 6);
+        if (liquid.description != null) {
+            liquid.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (gas.description != null) {
+            gas.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (ice.description != null) {
+            ice.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (life.description != null) {
+            life.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (lights.description != null) {
+            lights.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        }
+        displayStarType(HEIGHT + 100 + 30 * descCount);
         displaySettings();
     }
 

@@ -77,11 +77,12 @@ class Gas extends Component {
         high = low;
 
         sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
-        if (shape == Shape.None) description = "No";
-        else {
-            if (type != null) description = shape.name() + " " + type.name();
-            else description = shape.name() + " Unknown Gas";
+        if (shape == Shape.None) {
+            description = null;
+            return;
         }
+        if (type != null) description = shape.name() + " " + type.name();
+        else description = shape.name() + " Unknown Gas";
         description += " Clouds";
     }
 }

@@ -84,7 +84,7 @@ public class Ice extends Component {
         if (type != null) if (!isCool && type.equals(Type.Ice)) shape = Shape.None;
 
         sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
-        if (shape == Shape.None) description = "No sheets";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();

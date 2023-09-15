@@ -76,7 +76,7 @@ public class Lights extends Component {
         high = low;
 
         sprite = createImage(Main.sprites.get("planet_lights_" + shape.name()));
-        if (shape == Shape.None) description = "No complex life";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();

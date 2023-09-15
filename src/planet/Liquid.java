@@ -119,7 +119,7 @@ class Liquid extends Component {
         }
 
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
-        if (shape == Shape.None) description = "No liquid";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();
