@@ -1,15 +1,16 @@
-package planet;
+package planet.components;
 
 import core.Main;
+import planet.Planet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
 
 import java.awt.*;
 
-class Lighting {
+public class Lighting {
 
-    enum Star {
+    public enum Star {
         O(new Color(187, 203, 248), new Color(0, 10, 38)),
         B(new Color(201, 213, 250), new Color(0, 6, 23)),
         A(new Color(228, 233, 246), new Color(0, 3, 23)),
@@ -19,7 +20,7 @@ class Lighting {
         M(new Color(241, 206, 167), new Color(24, 12, 0));
 
         final Color highlight;
-        final Color shadow;
+        public final Color shadow;
 
         Star(Color highlight, Color shadow) {
             this.highlight = highlight;
@@ -33,14 +34,14 @@ class Lighting {
     private final float rate;
     private final PVector planetPos;
 
-    final Star star;
+    public final Star star;
 
     private float time;
     private PVector shadowPos;
     private float shadowRad;
     private boolean useOutside;
 
-    Lighting(float rate) {
+    public Lighting(float rate) {
         this.rate = rate;
 
         star = Star.values()[(int) Main.app.random(Star.values().length)];

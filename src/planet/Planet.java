@@ -1,7 +1,7 @@
 package planet;
 
 import core.Main;
-import processing.core.PApplet;
+import planet.components.*;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -20,20 +20,20 @@ public class Planet {
     }
 
     static final float HEIGHT = Main.HEIGHT * 0.35f;
-    static final int IMG_SIZE = 16;
+    public static final int IMG_SIZE = 16;
 
     public boolean showClouds = true;
     public DayNightStatus dayNightStatus = DayNightStatus.Normal;
 
     public final int seed;
 
-    private final Surface surface;
-    private final Liquid liquid;
-    private final Gas gas;
-    private final Life life;
-    private final Ice ice;
-    private final Lights lights;
-    private final Lighting lighting;
+    public Surface surface;
+    public Liquid liquid;
+    public Gas gas;
+    public Life life;
+    public Ice ice;
+    public Lights lights;
+    public Lighting lighting;
 
     public Planet(int seed) {
         this.seed = seed;
@@ -51,6 +51,14 @@ public class Planet {
         lights = new Lights(hasComplexLife(life));
     }
 
+    public static Planet createPlanet(int seed) {
+        Main.app.randomSeed(seed);
+        if (Main.app.random(4) < 1) return new BarrenPlanet(seed);
+        if (Main.app.random(4) < 1) return new GasGiant(seed);
+
+        return new Planet(seed);
+    }
+
     public void update() {
         lighting.update();
     }
@@ -58,14 +66,26 @@ public class Planet {
     public void display() {
         Main.app.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
 
+        int descCount = 1;
         displaySeed();
         surface.displayText(HEIGHT + 100);
-        liquid.displayText(HEIGHT + 100 + 30);
-        gas.displayText(HEIGHT + 100 + 30 * 2);
-        ice.displayText(HEIGHT + 100 + 30 * 3);
-        life.displayText(HEIGHT + 100 + 30 * 4);
-        lights.displayText(HEIGHT + 100 + 30 * 5);
-        displayStarType(HEIGHT + 100 + 30 * 6);
+        if (liquid.description != null) {
+            liquid.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (gas.description != null) {
+            gas.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (ice.description != null) {
+            ice.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (life.description != null) {
+            life.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        } if (lights.description != null) {
+            lights.displayText(HEIGHT + 100 + 30 * descCount);
+            descCount++;
+        }
+        displayStarType(HEIGHT + 100 + 30 * descCount);
         displaySettings();
     }
 
@@ -81,21 +101,33 @@ public class Planet {
         graphics.textAlign(PConstants.CENTER);
         graphics.background(0);
 
+        int descCount = 1;
         displaySeedToGraphics(graphics);
         graphics.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
         surface.displayTextToGraphics(HEIGHT + 100, graphics);
-        liquid.displayTextToGraphics(HEIGHT + 100 + 30, graphics);
-        gas.displayTextToGraphics(HEIGHT + 100 + 30 * 2, graphics);
-        ice.displayTextToGraphics(HEIGHT + 100 + 30 * 3, graphics);
-        life.displayTextToGraphics(HEIGHT + 100 + 30 * 4, graphics);
-        lights.displayTextToGraphics(HEIGHT + 100 + 30 * 5, graphics);
-        displayStarTypeToGraphics(HEIGHT + 100 + 30 * 6, graphics);
+        if (liquid.description != null) {
+            liquid.displayTextToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
+            descCount++;
+        } if (gas.description != null) {
+            gas.displayTextToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
+            descCount++;
+        } if (ice.description != null) {
+            ice.displayTextToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
+            descCount++;
+        } if (life.description != null) {
+            life.displayTextToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
+            descCount++;
+        } if (lights.description != null) {
+            lights.displayTextToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
+            descCount++;
+        }
+        displayStarTypeToGraphics(HEIGHT + 100 + 30 * descCount, graphics);
 
         graphics.endDraw();
         graphics.save(new File("").getAbsolutePath() + "/screenshots/" + seed + ".png");
     }
 
-    private void displaySettings() {
+    protected void displaySettings() {
         Main.app.textAlign(PConstants.LEFT);
 
         if (!showClouds) Main.app.text("Clouds hidden", 10, Main.HEIGHT - 10);
@@ -106,7 +138,7 @@ public class Planet {
         Main.app.textAlign(PConstants.CENTER);
     }
 
-    private PImage createImage() {
+    protected PImage createImage() {
         PImage img = Main.app.createImage(16, 16, ARGB);
         img.loadPixels();
 
@@ -142,7 +174,7 @@ public class Planet {
                         Color newColorColor = new Color(gas.sprite.pixels[i], true);
                         int newAlpha = newColorColor.getAlpha();
                         newColorColor = new Color(lighting.star.shadow.getRGB());
-                        img.pixels[i] = Component.mapColor(
+                        img.pixels[i] = planet.components.Component.mapColor(
                                 new Color(img.pixels[i]), newColorColor,
                                 newAlpha, 255).getRGB();
                     }
@@ -173,34 +205,34 @@ public class Planet {
         return img;
     }
 
-    private int mergeTransparently(int newColor, int baseColor) {
+    protected int mergeTransparently(int newColor, int baseColor) {
         Color newColorColor = new Color(newColor, true);
         int newAlpha = newColorColor.getAlpha();
         newColorColor = new Color(newColorColor.getRGB());
-        return Component.mapColor(
+        return planet.components.Component.mapColor(
                 new Color(baseColor), newColorColor,
                 newAlpha, 255).getRGB();
     }
 
-    private void displaySeed() {
+    protected void displaySeed() {
         Main.app.textSize(32);
         Main.app.fill(Color.YELLOW.getRGB());
         Main.app.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
-    private void displaySeedToGraphics(PGraphics graphics) {
+    protected void displaySeedToGraphics(PGraphics graphics) {
         graphics.textSize(32);
         graphics.fill(Color.YELLOW.getRGB());
         graphics.text("Planet #" + seed + (Main.entryMode ? "_" : ""), Main.WIDTH / 2f, HEIGHT - 100);
     }
 
-    private void displayStarType(float height) {
+    protected void displayStarType(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);
     }
 
-    private void displayStarTypeToGraphics(float height, PGraphics graphics) {
+    protected void displayStarTypeToGraphics(float height, PGraphics graphics) {
         graphics.fill(255);
         graphics.textSize(20);
         graphics.text(lighting.star.name() + " Type Star", Main.WIDTH / 2f, height);

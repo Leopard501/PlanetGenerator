@@ -1,13 +1,13 @@
-package planet;
+package planet.components;
 
 import core.Main;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class Ice extends Component {
+public class Ice extends planet.components.Component {
 
-    enum Type implements Pickable {
+    public enum Type implements Pickable {
         Ice(
                 () -> new Color(0xe5e3df),
                 () -> new Color(0xc1d5d6), 8),
@@ -40,7 +40,7 @@ public class Ice extends Component {
         public int getOrdinal() {return ordinal();}
     }
 
-    enum Shape implements Pickable {
+    public enum Shape implements Pickable {
         None(6),
         SmallCaps(5),
         MediumCaps(3),
@@ -66,11 +66,11 @@ public class Ice extends Component {
         }
     }
 
-    Shape shape;
-    Type type;
+    public Shape shape;
+    public Type type;
 
     // Should be disabled if the type is Ice and there is hot liquid
-    Ice(boolean isCool) {
+    public Ice(boolean isCool) {
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -80,11 +80,14 @@ public class Ice extends Component {
             low = type.low.get();
             high = type.high.get();
         }
-
         if (type != null) if (!isCool && type.equals(Type.Ice)) shape = Shape.None;
 
+        createAssets();
+    }
+
+    public void createAssets() {
         sprite = createImage(Main.sprites.get("planet_ice_" + shape.name()));
-        if (shape == Shape.None) description = "No sheets";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();

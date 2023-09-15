@@ -1,4 +1,4 @@
-package planet;
+package planet.components;
 
 import core.Main;
 import processing.core.PApplet;
@@ -10,22 +10,22 @@ import java.util.ArrayList;
 
 import static planet.Planet.IMG_SIZE;
 
-abstract class Component {
+public abstract class Component {
 
     static final int RANDOM_COLOR_CHANCE = 7;
 
-    Color low;
-    Color high;
-    PImage sprite;
-    String description;
+    public Color low;
+    public Color high;
+    public PImage sprite;
+    public String description;
 
-    void displayText(float height) {
+    public void displayText(float height) {
         Main.app.fill(255);
         Main.app.textSize(20);
         Main.app.text(description, Main.WIDTH / 2f, height);
     }
 
-    void displayTextToGraphics(float height, PGraphics graphics) {
+    public void displayTextToGraphics(float height, PGraphics graphics) {
         graphics.fill(255);
         graphics.textSize(20);
         graphics.text(description, Main.WIDTH / 2f, height);
@@ -51,7 +51,7 @@ abstract class Component {
         return img;
     }
 
-    static Color mapColor(Color a, Color b, float map, float alpha) {
+    public static Color mapColor(Color a, Color b, float map, float alpha) {
         float r = PApplet.map(map, 0, 255, a.getRed(), b.getRed());
         float g = PApplet.map(map, 0, 255, a.getGreen(), b.getGreen());
         float bl = PApplet.map(map, 0, 255, a.getBlue(), b.getBlue());

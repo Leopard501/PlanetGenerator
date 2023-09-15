@@ -1,13 +1,13 @@
-package planet;
+package planet.components;
 
 import core.Main;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
-class Liquid extends Component {
+public class Liquid extends planet.components.Component {
 
-    enum Type implements Pickable {
+    public enum Type implements Pickable {
         MoltenRock(
                 () -> new Color(255, 128, 0),
                 () -> new Color(0xFF2F00), 4),
@@ -30,12 +30,12 @@ class Liquid extends Component {
                 () -> new Color(0xFFFFFF),
                 () -> new Color(54, 54, 54), 2),
         Organic(
-                () -> Component.pickColor(
+                () -> planet.components.Component.pickColor(
                     new Color(0xB2AF11),
                     new Color(0xB20707),
                     new Color(0x9C0FC4)
                 ),
-                () -> Component.pickColor(
+                () -> planet.components.Component.pickColor(
                         new Color(0x406705),
                         new Color(0x490000),
                         new Color(0x3D0580)
@@ -73,7 +73,7 @@ class Liquid extends Component {
         public int getOrdinal() {return ordinal();}
     }
 
-    enum Shape implements Pickable {
+    public enum Shape implements Pickable {
         None(4),
         Lakes(2),
         Rivers(2),
@@ -98,12 +98,12 @@ class Liquid extends Component {
         }
     }
 
-    Shape shape;
-    Type type;
+    public Shape shape;
+    public Type type;
 
-    boolean glows;
+    public boolean glows;
 
-    Liquid() {
+    public Liquid() {
         shape = pick(Shape.class);
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -118,8 +118,12 @@ class Liquid extends Component {
             glows = type.equals(Type.MoltenRock) || type.equals(Type.MoltenMetal);
         }
 
+        createAssets();
+    }
+
+    public void createAssets() {
         sprite = createImage(Main.sprites.get("planet_liquid_" + shape.name()));
-        if (shape == Shape.None) description = "No liquid";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = type.name() + " " + shape.name();
             else description = "Unknown " + shape.name();

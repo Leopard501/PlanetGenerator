@@ -1,11 +1,11 @@
-package planet;
+package planet.components;
 
 import core.Main;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
-class Gas extends Component {
+public class Gas extends Component {
 
     private enum Type implements Pickable {
         Water(() -> Color.WHITE, 10),
@@ -39,7 +39,7 @@ class Gas extends Component {
         public int getOrdinal() {return this.ordinal();}
     }
 
-    private enum Shape implements Pickable {
+    public enum Shape implements Pickable {
         None(3),
         Trace(2),
         Sparse(1),
@@ -63,10 +63,10 @@ class Gas extends Component {
         }
     }
 
-    Shape shape;
-    Type type;
+    public Shape shape;
+    public Type type;
 
-    Gas() {
+    public Gas() {
         shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
             low = randomColor();
@@ -76,12 +76,17 @@ class Gas extends Component {
         }
         high = low;
 
+        createAssets();
+    }
+
+    public void createAssets() {
         sprite = createImage(Main.sprites.get("planet_gas_" + shape.name()));
-        if (shape == Shape.None) description = "No";
-        else {
-            if (type != null) description = shape.name() + " " + type.name();
-            else description = shape.name() + " Unknown Gas";
+        if (shape == Shape.None) {
+            description = null;
+            return;
         }
+        if (type != null) description = shape.name() + " " + type.name();
+        else description = shape.name() + " Unknown Gas";
         description += " Clouds";
     }
 }

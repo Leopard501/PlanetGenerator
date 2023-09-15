@@ -1,15 +1,12 @@
-package planet;
+package planet.components;
 
 import core.Main;
-import processing.core.PImage;
 
 import java.awt.*;
 
-import static planet.Planet.IMG_SIZE;
+public class Life extends planet.components.Component {
 
-class Life extends Component {
-
-    enum Type {
+    public enum Type {
         GreenAlgae(new Color(149, 162, 41)),
         BrownAlgae(new Color(190, 139, 35)),
         RedAlgae(new Color(206, 41, 21)),
@@ -25,7 +22,7 @@ class Life extends Component {
         }
     }
 
-    enum Shape {
+    public enum Shape {
         None,
         Sparse,
         Global,
@@ -33,11 +30,11 @@ class Life extends Component {
         Polar
     }
 
-    Shape shape;
-    Type type;
+    public Shape shape;
+    public Type type;
 
     // Should be disabled if the planet has weird liquids on it
-    Life(Lighting.Star star, boolean isHabitable) {
+    public Life(Lighting.Star star, boolean isHabitable) {
         if (isHabitable) shape = Shape.values()[(int) Main.app.random(Shape.values().length)];
         else shape = Shape.None;
         if (Main.app.random(RANDOM_COLOR_CHANCE) < 1) {
@@ -48,8 +45,12 @@ class Life extends Component {
         }
         high = low;
 
+        createAssets();
+    }
+
+    public void createAssets() {
         sprite = createImage(Main.sprites.get("planet_life_" + shape.name()));
-        if (shape == Shape.None) description = "No life";
+        if (shape == Shape.None) description = null;
         else {
             if (type != null) description = shape.name() + " " + type.name();
             else description = shape.name() + " Unknown Life";
