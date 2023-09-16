@@ -69,6 +69,13 @@ public class Main extends PApplet {
         planet = Planet.createPlanet(seed);
     }
 
+    public static void distribute(Runnable fiveInTen, Runnable threeInTen, Runnable twoInTen) {
+        float val = Main.app.random(1);
+        if (val > 0.5) fiveInTen.run();
+        else if (val > 0.2) threeInTen.run();
+        else twoInTen.run();
+    }
+
     @Override
     public void keyReleased() {
         if (key == ' ' && !entryMode) {

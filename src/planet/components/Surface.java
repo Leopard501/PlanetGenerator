@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public class Surface extends planet.components.Component {
 
-    private enum Type implements Pickable {
+    public enum Type implements Pickable {
         Igneous(
                 () -> new Color(0x3c3c50),
                 () -> new Color(0x1b1b1b), 1),

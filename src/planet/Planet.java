@@ -34,6 +34,7 @@ public class Planet {
     public Ice ice;
     public Lights lights;
     public Lighting lighting;
+    public Moon[] moons;
 
     public Planet(int seed) {
         this.seed = seed;
@@ -43,12 +44,24 @@ public class Planet {
         liquid = new Liquid();
         gas = new Gas();
         ice = new Ice(isCool(liquid));
-        lighting = new Lighting(
-                ice.shape.equals(Ice.Shape.EyeballSheet) ?
-                        0 :
-                        Main.app.random(-0.01f, 0.01f));
+        float rotationSpeed = ice.shape.equals(Ice.Shape.EyeballSheet) ?
+                0 : Main.app.random(-0.01f, 0.01f);
+        lighting = new Lighting(rotationSpeed);
         life = new Life(lighting.star, isHabitable(liquid));
         lights = new Lights(hasComplexLife(life));
+
+        Main.distribute(
+                () -> moons = new Moon[(int) Main.app.random(1)],
+                () -> moons = new Moon[(int) Main.app.random(1, 2)],
+                () -> moons = new Moon[(int) Main.app.random(2, 3)]
+        );
+
+        moons = new Moon[(int) Main.app.random(5)];
+        for (int i = 0; i < moons.length; i++) {
+            moons[i] = new Moon(
+                    surface.type != null && surface.type.equals(Surface.Type.Ice),
+                    rotationSpeed);
+        }
     }
 
     public static Planet createPlanet(int seed) {
@@ -61,10 +74,24 @@ public class Planet {
 
     public void update() {
         lighting.update();
+        for (Moon moon : moons) moon.update();
     }
 
     public void display() {
+        for (Moon moon : moons) if (!moon.isBehind) {
+            Main.app.image(moon.sprite,
+                    Math.round((moon.screenPosition + Main.WIDTH / 2f) / 10) * 10,
+                    HEIGHT, 160, 160);
+        }
         Main.app.image(createImage(), Main.WIDTH / 2f, HEIGHT, 160, 160);
+        for (int i = moons.length - 1; i >= 0; i--) {
+            Moon moon = moons[i];
+            if (moon.isBehind) {
+                Main.app.image(moon.sprite,
+                        Math.round((moon.screenPosition + Main.WIDTH / 2f) / 10) * 10,
+                        HEIGHT, 160, 160);
+            }
+        }
 
         int descCount = 1;
         displaySeed();
